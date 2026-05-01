@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🚗 Car Showroom</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚗 Car Showroom</h1>
+<button onclick="loadCars()">Load Cars</button>
+
+<div class="grid" id="cars"></div>
+
+<script>
+function loadCars() {
+    fetch("/api/cars")
+    .then(res => res.json())
+    .then(data => {
+        let html = "";
+        data.forEach(car => {
+            html += `
+                <div class="card">
+                    <img src="${car.image}">
+                    <div class="info">
+                        <h3>${car.name}</h3>
+                        <p>💰 ₹${car.price}</p>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById("cars").innerHTML = html;
+    })
+    .catch(() => {
+        document.getElementById("cars").innerHTML = "❌ Error loading cars";
+    });
+}
+</script>
+
+</body>
+</html>
