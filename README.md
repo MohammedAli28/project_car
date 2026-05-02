@@ -370,7 +370,30 @@ app.listen(3000)
 * No hardcoded IPs
 
 ---
+🚀 1. Run Nginx in background (Frontend)
 
+👉 Good news:
+
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+✔ Runs in background
+✔ Auto-start on reboot
+✔ Works with ASG
+
+✅ Correct way (use PM2)
+
+Install and configure:
+
+npm install -g pm2
+
+pm2 start server.js
+pm2 save
+pm2 startup
+
+👉 This ensures:
+
+New instance → Node app auto starts ✔
 # 🚀 Final Outcome
 
 * Fully working **multi-tier architecture**
